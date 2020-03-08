@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:workoutapp/helper/navigation_helper.dart';
+import 'package:workoutapp/style/styles.dart';
 
 import 'home.dart';
 
@@ -8,15 +11,18 @@ class CreateProfileState extends State<CreateProfile> {
 
   String inputValue = "";
   String hintText = "Enter your name";
-  String topMessage = "How should we call you?";
-  String buttonText = "NEXT";
+  String topMessage = "How should I call you?";
+  String buttonText = "Next";
   String weightUnitsToUse = "kg";
 
   final TextEditingController _controller = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(systemNavigationBarColor: Colors.white));
     return Scaffold(
+      backgroundColor: Colors.white,
         body: SafeArea(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -44,7 +50,7 @@ class CreateProfileState extends State<CreateProfile> {
       case CreateProfileSteps.weight:
         this.currentStep = CreateProfileSteps.finished;
         this.topMessage = "You're all set up :)";
-        this.buttonText = "GET STARTED";
+        this.buttonText = "Get Started";
         break;
       default:
     }
@@ -73,7 +79,7 @@ class CreateProfileState extends State<CreateProfile> {
     return Container(
       child: Text(
         this.topMessage,
-        style: Theme.of(context).textTheme.headline,
+        style: Styles.titleDarkLarge(),
         textAlign: TextAlign.start,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -106,7 +112,7 @@ class CreateProfileState extends State<CreateProfile> {
       padding: const EdgeInsets.symmetric(horizontal: 60),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[buttonWidget(" MALE "), buttonWidget("FEMALE")],
+        children: <Widget>[buttonWidget(" Male "), buttonWidget("Female")],
       ),
     );
   }
@@ -162,9 +168,9 @@ class CreateProfileState extends State<CreateProfile> {
       onPressed: () {
         setState(() {
           if (this.currentStep == CreateProfileSteps.finished) {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) => Home()),
+              Pages.home,
             );
           } else {
             nextProfileStep();
@@ -173,7 +179,7 @@ class CreateProfileState extends State<CreateProfile> {
       },
       splashColor: Theme.of(context).accentColor,
       child: Text(text,
-          style: Theme.of(context).textTheme.display2
+          style: Styles.buttonTextLight()
       )
     );
   }

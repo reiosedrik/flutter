@@ -1,0 +1,3 @@
+enum ActiveExerciseView {
+  singleSet, allSets
+}

@@ -1,17 +1,27 @@
+import 'dart:core';
+
+import 'package:workoutapp/helper/data_helper.dart';
+
 class RepModel {
   int repCount;
+  String displayWeight;
   double weight;
 
-  RepModel(this.repCount, this.weight);
+  RepModel(this.repCount, this.weight) {
+    setDisplayWeight();
+  }
 
-  static List<RepModel>  testList() {
-    var result = new List<RepModel>();
-    result.add(RepModel(6, 82.5));
-    result.add(RepModel(6, 85));
-    result.add(RepModel(6, 87.5));
-    result.add(RepModel(6, 90));
-    result.add(RepModel(6, 85));
+  void removeWeight(double amount) {
+    weight -= amount;
+    setDisplayWeight();
+  }
 
-    return result;
+  void addWeight(double amount) {
+    weight += amount;
+    setDisplayWeight();
+  }
+
+  void setDisplayWeight() {
+    this.displayWeight = DataHelper.removeTrailingZerosFromDecimal(weight);
   }
 }
